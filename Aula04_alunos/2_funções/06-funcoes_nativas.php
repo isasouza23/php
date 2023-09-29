@@ -14,11 +14,24 @@
     <h3>String</h3>
 <?php
 // Trim(param) -> Remove espaços antes e depois de strings
-$nome = "Ignacio Cunha        ";
-$nomeSemEspaco = trim($nome);
+    $nome = "Ignacio Cunha        ";
+    $nomeSemEspaco = trim($nome);
+
+    $nome2 = "     Isa Souza      ";
+    $nomeSemEspaco = trim ($nome);
 ?>
 
+
+
 <!-- 1ª Digitação (Aqui) -->
+<pre> <?=var_dump($nome) ?> </pre>
+<pre> <?=var_dump(trim($nome))  ?> </pre>
+<pre> <?=var_dump($nomeSemEspaco) ?> </pre>
+
+<p>meu teste</p>
+<pre> <?=var_dump($nome2) ?> </pre>
+<pre> <?=var_dump(trim($nome2))  ?> </pre>
+
 
 <!-- ___________________________________________________________ -->
 <!-- Substitui um texto por outro-->
@@ -28,7 +41,11 @@ $fraseFeia = "<p>Fulano é um bobão e xarope</p>";
 
 
 //  2ª Digitação (Aqui)
-
+$fraseBonita = str_replace(
+    ["bobao","xarope"], 
+    ["cara legal","genial"],
+    $fraseFeia
+);
 
 echo $fraseFeia;
 echo $fraseBonita;
@@ -37,20 +54,31 @@ echo $fraseBonita;
 <!-- Separa os texto através de um delimitador -->
 <h3>explode</h3>
 <?php
-$linguagens = "HTML - CSS - JS";
-$arrayLinguagens = explode(" - ", $linguagens);
+    $linguagens = "HTML - CSS - JS";
+    $arrayLinguagens = explode(" - ", $linguagens);
+
+    $nome3 = "Isabelle De Souza Moreira";
+    $arrayNome3 = explode(" ", $nome3);
 
 ?>
 
 <!-- 3ª Digitação (Aqui) -->
+<pre> <?=var_dump($linguagens)?> </pre>
+<pre> <?=var_dump($arrayLinguagens)?> </pre>
 
+<pre> <?=var_dump($nome3)?> </pre>
+<pre> <?=var_dump($arrayNome3)?> </pre>
 <!-- ___________________________________________________________ -->
 <hr>
     <h2>Arrays</h2>
     <h3>implode()</h3>
 
 <!-- 4ª Digitação (Aqui) -->
+<?php
+    $bandas = ["Savage", "Nightwish", "Ghost"];
+    $stringBandas = implode(" | ", $bandas);
 
+?>
 <pre> <?=var_dump($bandas)?> </pre>
 <pre> <?=var_dump($stringBandas)?> </pre>
 <!-- ___________________________________________________________ -->
@@ -58,27 +86,62 @@ $arrayLinguagens = explode(" - ", $linguagens);
     <h3>extract()</h3>
 
 <!-- 5ª Digitação (Aqui) -->
+<?php
+    $aluno = [
+        "id" => "Fulano",
+        "idade" => 25,
+        "sexo" => "masculino",
+        "cidade" => "Santo André"
+
+    ];
+
+    extract($aluno);
+?>
+
+<hr>
+
+
+<?php
+    $aluno = [
+        "nome" => "Isabelle",
+        "idade1" => 16,
+        "sesi" => "094",
+        "senai" => "1DE"
+
+    ];
+
+    extract($aluno);
+?>
 
 <p> <?=$id?> </p>
 <p> <?=$idade?> </p>
 <p> <?=$sexo?> </p>
 <p> <?=$cidade?> </p>
 
+<hr>
+
+<p> <?=$nome?> </p>
+<p> <?=$idade1?> </p>
+<p> <?=$sesi?> </p>
+<p> <?=$senai?> </p>
 <!-- ___________________________________________________________ -->
 <hr>
 
 <!-- Filtra indicando um preenchimento errado -->
     <h2>Filtros</h2>
 <?php
-$email = "ignacio@gmail.com.br";
-$ataque = "<script> document.body.innerHTML = 'Sou ráqui!! hahahah >.<' </script>";
+    $email = "ignacio@gmail.com.br";
+    $ataque = "<script> document.body.innerHTML = '<h1>Sou ráqui!! hahahah >.<</h1>' </script>";
 
-// echo $ataque;
+    // echo $ataque;
 
-//  6ª Digitação (Aqui)
+    //  6ª Digitação (Aqui)
+    $ataqueAnulado = filter_var($ataque,FILTER_SANITIZE_SPECIAL_CHARS);
+
+
+    echo $ataqueAnulado;
 
 ?>
-
 
 <p>
     <?=var_dump(filter_var($email, FILTER_VALIDATE_EMAIL))?>
@@ -118,6 +181,14 @@ $senhaSegura = password_hash($senha, PASSWORD_DEFAULT);
 <!-- Como checar se a senha é a correta -->
 
 <!-- 7ª Digitação (Aqui)  -->
-    
+<?php
+    $senhaDigitada = "123ABC";
+
+    if(password_verify($senhaDigitada,$senhaSegura)) {
+        echo "Beleza!!! Senhas iguais..."; 
+    } else {
+        echo "Opa!!! Senha errada.";
+    }
+?>  
 </body>
 </html>
